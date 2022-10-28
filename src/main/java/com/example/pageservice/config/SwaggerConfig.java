@@ -28,8 +28,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo(){
         return new ApiInfoBuilder()
-                .title("Products API")
-                .description("This page list all the rest apis for the products API.")
+                .title("Pages-service")
+                .description("This page list all the endpoints of the pages-service")
                 .version("1.0-SNAPSHOT")
                 .build();
     }
