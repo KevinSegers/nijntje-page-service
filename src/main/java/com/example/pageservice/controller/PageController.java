@@ -57,7 +57,6 @@ public class PageController {
     }
 
 
-
     @GetMapping("/pages/bookTitle/{bookTitle}/pageNumber/{pageNumber}")
     public Page getPageByBookTitleAndPageNumber(@PathVariable String bookTitle, @PathVariable int pageNumber){
 
@@ -92,6 +91,16 @@ public class PageController {
         pageRepository.save(retrievedPage);
 
         return retrievedPage;
+    }
+
+    @PutMapping("/pages/bookTitle/{bookTitle}/setpagesunseen")
+    public List<Page> setPagesUnseen(@PathVariable String bookTitle){
+        List<Page> pages = pageRepository.findPagesByBookTitle(bookTitle);
+        for(Page page : pages){
+            page.setSeen(false);
+            pageRepository.save(page);
+        }
+        return pages;
     }
 
     @DeleteMapping("/book/page/{pageId}")
