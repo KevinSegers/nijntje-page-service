@@ -51,13 +51,13 @@ public class PageController {
         }
     }
 
-    @GetMapping("/pages/bookTitle/{bookTitle}")
+    @GetMapping("/pages/booktitle/{bookTitle}")
     public List<Page> getPagesByBookTitle(@PathVariable String bookTitle){
         return pageRepository.findPagesByBookTitle(bookTitle);
     }
 
 
-    @GetMapping("/pages/bookTitle/{bookTitle}/pageNumber/{pageNumber}")
+    @GetMapping("/pages/booktitle/{bookTitle}/pageNumber/{pageNumber}")
     public Page getPageByBookTitleAndPageNumber(@PathVariable String bookTitle, @PathVariable int pageNumber){
 
         return pageRepository.findPageByBookTitleAndPageNumber(bookTitle, pageNumber);
@@ -93,7 +93,7 @@ public class PageController {
         return retrievedPage;
     }
 
-    @PutMapping("/pages/bookTitle/{bookTitle}/setpagesunseen")
+    @PutMapping("/pages/booktitle/{bookTitle}/setpagesunseen")
     public List<Page> setPagesUnseen(@PathVariable String bookTitle){
         List<Page> pages = pageRepository.findPagesByBookTitle(bookTitle);
         for(Page page : pages){
