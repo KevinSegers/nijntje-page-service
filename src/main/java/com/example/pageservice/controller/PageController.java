@@ -52,7 +52,7 @@ public class PageController {
     }
 
     @GetMapping("/pages/bookTitle/{bookTitle}")
-    public List<Page> getPageByBookTitle(@PathVariable String bookTitle){
+    public List<Page> getPagesByBookTitle(@PathVariable String bookTitle){
         return pageRepository.findPagesByBookTitle(bookTitle);
     }
 
@@ -84,7 +84,7 @@ public class PageController {
         Page retrievedPage = pageRepository.findPageById(updatedPage.getId());
 
         retrievedPage.setPageNumber(updatedPage.getPageNumber());
-        retrievedPage.setItemNames(updatedPage.getItemNames());
+        retrievedPage.setItems(updatedPage.getItems());
         retrievedPage.setSeen(updatedPage.isSeen());
         retrievedPage.setBookTitle(updatedPage.getBookTitle());
 
