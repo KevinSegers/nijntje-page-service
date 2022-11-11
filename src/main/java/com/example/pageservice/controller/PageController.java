@@ -22,18 +22,19 @@ public class PageController {
     public void fillDB(){
         if(pageRepository.count() == 0){
 
-            List<String> itemsPageOne = new ArrayList<>(Arrays.asList("nijntje", "mama nijntje", "papa nijntje"));
-            List<String> itemsPageTwo = new ArrayList<>(Arrays.asList("nijntje", "mama nijntje", "papa nijntje", "auto"));
-            List<String> itemsPageThree = new ArrayList<>(Arrays.asList("nijntje", "mama nijntje", "papa nijntje"));
+            List<String> itemsPageOne = new ArrayList<>(Arrays.asList("nijntje", "mamaNijntje", "papaNijntje"));
+            List<String> itemsPageTwo = new ArrayList<>(Arrays.asList("nijntje", "mamaNijntje", "papaNijntje", "auto"));
+            List<String> itemsPageThree = new ArrayList<>(Arrays.asList("nijntje", "mamaNijntje", "papaNijntje"));
             List<String> itemsPageFour = new ArrayList<>(Arrays.asList("nijntje", "schommel"));
             List<String> itemsPageFive = new ArrayList<>(Arrays.asList("nijntje", "ringen"));
             List<String> itemsPageSix = new ArrayList<>(Arrays.asList("nijntje", "rekstok"));
             List<String> itemsPageSeven = new ArrayList<>(Arrays.asList("nijntje", "klimboom"));
             List<String> itemsPageEight = new ArrayList<>(Arrays.asList("nijntje", "glijbaan"));
-            List<String> itemsPageNine = new ArrayList<>(Arrays.asList("nijntje", "wip"));
+            List<String> itemsPageNine = new ArrayList<>(Arrays.asList("nijntje", "wip", "papaNijntje"));
             List<String> itemsPageTen = new ArrayList<>(Arrays.asList("nijntje", "trampoline"));
-            List<String> itemsPageEleven = new ArrayList<>(Arrays.asList("nijntje", "mama nijntje", "papa nijntje", "bessensap"));
-            List<String> itemsPageTwelve = new ArrayList<>(Arrays.asList("nijntje", "mama nijntje", "papa nijntje", "auto"));
+            List<String> itemsPageEleven = new ArrayList<>(Arrays.asList("nijntje", "mamaNijntje", "papaNijntje"));
+            List<String> itemsPageTwelve = new ArrayList<>(Arrays.asList("nijntje", "mamaNijntje", "papaNijntje", "auto"));
+
 
             pageRepository.save(new Page(1, itemsPageOne, false, "Nijntje in de speeltuin"));
             pageRepository.save(new Page(2, itemsPageTwo, false, "Nijntje in de speeltuin"));
@@ -67,6 +68,28 @@ public class PageController {
     @GetMapping("/pages")
     public List<Page> getAllPages(){
         return pageRepository.findAll();
+    }
+
+    @GetMapping("/pages/booktitle/{bookTitle}/pagesunseen")
+    public double getPagesUnseenFromBook(@PathVariable String bookTitle){
+        List<Page> pages = pageRepository.findPagesByBookTitle(bookTitle);
+        assert pages != null;
+        int totalSeen = 0;
+        int totalPages = pages.size();
+        for (Page page:pages) {
+            if(page.isSeen()){
+                totalSeen ++;
+            }
+        }
+
+        double result = (double) Math.round(100*(double) totalSeen/totalPages)/100;
+        return result;
+
+    }
+
+    @GetMapping("/pages/booktitle/{bookTitle}/pagenumber/{pageNumber}/items")
+    public List<String> getItemsFromPage(@PathVariable String bookTitle, @PathVariable int pageNumber){
+        return pageRepository.findPageByBookTitleAndPageNumber(bookTitle, pageNumber).getItems();
     }
 
 
