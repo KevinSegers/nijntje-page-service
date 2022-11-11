@@ -57,7 +57,7 @@ public class PageController {
     }
 
 
-    @GetMapping("/pages/booktitle/{bookTitle}/pageNumber/{pageNumber}")
+    @GetMapping("/pages/booktitle/{bookTitle}/pagenumber/{pageNumber}")
     public Page getPageByBookTitleAndPageNumber(@PathVariable String bookTitle, @PathVariable int pageNumber){
 
         return pageRepository.findPageByBookTitleAndPageNumber(bookTitle, pageNumber);
