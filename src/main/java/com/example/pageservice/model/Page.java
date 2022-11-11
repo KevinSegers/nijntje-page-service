@@ -9,7 +9,7 @@ public class Page {
     @Id
     private String id;
     private int pageNumber;
-    private List<String> itemNames;
+    private List<String> items;
     private Boolean seen;
     private String bookTitle;
 
@@ -18,9 +18,9 @@ public class Page {
     }
 
 
-    public Page( int pageNumber, List<String> itemNames,  Boolean seen, String bookTitle) {
+    public Page( int pageNumber, List<String> items,  Boolean seen, String bookTitle) {
         this.pageNumber = pageNumber;
-        this.itemNames = itemNames;
+        this.items = items;
         this.seen = seen;
         this.bookTitle = bookTitle;
     }
@@ -42,12 +42,12 @@ public class Page {
         this.pageNumber = pageNumber;
     }
 
-    public List<String> getItemNames() {
-        return itemNames;
+    public List<String> getItems() {
+        return items;
     }
 
-    public void setItemNames(List<String> itemNames) {
-        this.itemNames = itemNames;
+    public void setItems(List<String> items) {
+        this.items = items;
     }
 
     public Boolean isSeen() {
