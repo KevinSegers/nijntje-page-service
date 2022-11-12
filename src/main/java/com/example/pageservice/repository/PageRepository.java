@@ -10,8 +10,5 @@ import java.util.List;
 @Repository
 public interface PageRepository extends MongoRepository<Page, String> {
     List<Page> findPagesByBookTitle(String bookTitle);
-//    List<Page> findPagesByItemNames(String ItemName);
     Page findPageByBookTitleAndPageNumber(String bookTitle, int pageNumber);
-
-    Page findPageById(String id);
 }

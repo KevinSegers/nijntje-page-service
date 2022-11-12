@@ -103,7 +103,7 @@ public class PageController {
 
     @PutMapping("/pages")
     public Page updatePage(@RequestBody Page updatedPage){
-        Page retrievedPage = pageRepository.findPageById(updatedPage.getId());
+        Page retrievedPage = pageRepository.findPageByBookTitleAndPageNumber(updatedPage.getBookTitle(), updatedPage.getPageNumber());
 
         retrievedPage.setPageNumber(updatedPage.getPageNumber());
         retrievedPage.setItems(updatedPage.getItems());
@@ -126,9 +126,9 @@ public class PageController {
         return pages;
     }
 
-    @DeleteMapping("/book/page/{pageId}")
-    public ResponseEntity deletePage(@PathVariable String pageId) {
-        Page page = pageRepository.findPageById(pageId);
+    @DeleteMapping("/pages/booktitle/{bookTitle}/pagenumber/{pageNumber}")
+    public ResponseEntity deletePage(@PathVariable String bookTitle, @PathVariable int pageNumber) {
+        Page page = pageRepository.findPageByBookTitleAndPageNumber(bookTitle, pageNumber);
         if (page != null) {
             pageRepository.delete(page);
             return ResponseEntity.ok().build();
