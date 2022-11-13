@@ -125,7 +125,7 @@ public class PageController {
     }
 
     @DeleteMapping("/pages/booktitle/{bookTitle}/pagenumber/{pageNumber}")
-    public ResponseEntity deletePage(@PathVariable String bookTitle, @PathVariable int pageNumber) {
+    public ResponseEntity<Page> deletePage(@PathVariable String bookTitle, @PathVariable int pageNumber) {
         Page page = pageRepository.findPageByBookTitleAndPageNumber(bookTitle, pageNumber);
         if (page != null) {
             pageRepository.delete(page);
