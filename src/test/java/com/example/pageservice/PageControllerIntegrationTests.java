@@ -28,12 +28,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class PageControllerIntegrationTests {
 
     @Autowired
-    private MockMvc mockMvc;
+    MockMvc mockMvc;
 
     @Autowired
     private PageRepository pageRepository;
 
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     List<String> itemsPageOne = new ArrayList<>(Arrays.asList("nijntje", "mamaNijntje", "papaNijntje"));
     List<String> itemsPageTwo = new ArrayList<>(Arrays.asList("nijntje", "mamaNijntje", "papaNijntje", "auto"));
@@ -41,14 +41,14 @@ public class PageControllerIntegrationTests {
     List<String> itemsPageFour = new ArrayList<>(Arrays.asList("nijntje", "schommel"));
 
 
-    private Page pageOne = new Page(1, itemsPageOne, true, "Nijntje in de speeltuin");
-    private Page pageTwo = new Page(2, itemsPageTwo, false, "Nijntje in de speeltuin");
-    private Page pageThree = new Page(3, itemsPageThree, false, "Nijntje in de speeltuin");
-    private Page pageToBeDeleted = new Page(1, itemsPageFour, false, "Nijntje");
+    private final Page pageOne = new Page(1, itemsPageOne, true, "Nijntje in de speeltuin");
+    private final Page pageTwo = new Page(2, itemsPageTwo, false, "Nijntje in de speeltuin");
+    private final Page pageThree = new Page(3, itemsPageThree, false, "Nijntje in de speeltuin");
+    private final Page pageToBeDeleted = new Page(1, itemsPageFour, false, "Nijntje");
 
 
     @BeforeEach
-    public void beforeAllTests() {
+    void beforeAllTests() {
         pageRepository.deleteAll();
         pageRepository.save(pageOne);
         pageRepository.save(pageTwo);
@@ -57,12 +57,12 @@ public class PageControllerIntegrationTests {
     }
 
     @AfterEach
-    public void afterAllTests() {
+    void afterAllTests() {
         pageRepository.deleteAll();
     }
 
     @Test
-    public void whenGetAllPages_thenReturnJsonPage() throws Exception{
+    void whenGetAllPages_thenReturnJsonPage() throws Exception{
         mockMvc.perform(get("/pages"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -87,7 +87,7 @@ public class PageControllerIntegrationTests {
     }
 
     @Test
-    public void givenBooktitle_whenGetPagesByBooktitle_thenReturnJsonPage() throws Exception{
+    void givenBooktitle_whenGetPagesByBooktitle_thenReturnJsonPage() throws Exception{
         mockMvc.perform(get("/pages/booktitle/{bookTitle}", "Nijntje in de speeltuin"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -107,7 +107,7 @@ public class PageControllerIntegrationTests {
     }
 
     @Test
-    public void givenBooktitleAndPageNumber_whenGetPageByBooktitleAndPageNumber_thenReturnJsonPage() throws Exception{
+    void givenBooktitleAndPageNumber_whenGetPageByBooktitleAndPageNumber_thenReturnJsonPage() throws Exception{
         mockMvc.perform(get("/pages/booktitle/{bookTitle}/pagenumber/{pageNumber}", "Nijntje in de speeltuin", 1))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -118,7 +118,7 @@ public class PageControllerIntegrationTests {
     }
 
     @Test
-    public void givenBooktitleAndPageNumber_whenGetItemsByBooktitleeAndPageNumber_thenReturnList() throws Exception{
+    void givenBooktitleAndPageNumber_whenGetItemsByBooktitleeAndPageNumber_thenReturnList() throws Exception{
         mockMvc.perform(get("/pages/booktitle/{bookTitle}/pagenumber/{pageNumber}/items", "Nijntje in de speeltuin", 1))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -127,7 +127,7 @@ public class PageControllerIntegrationTests {
 
     //TODO
     @Test
-    public void givenBooktitleAndPageNumber_whenGetPagesUnseenByBooktitleeAndPageNumber_thenReturnDouble() throws Exception{
+    void givenBooktitleAndPageNumber_whenGetPagesUnseenByBooktitleeAndPageNumber_thenReturnDouble() throws Exception{
         mockMvc.perform(get("/pages/booktitle/{bookTitle}/pagesunseen", "Nijntje in de speeltuin"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -138,7 +138,7 @@ public class PageControllerIntegrationTests {
 
 
     @Test
-    public void givenBooktitle_whenSetPagesUnseen_thenReturnJsonPages() throws Exception{
+    void givenBooktitle_whenSetPagesUnseen_thenReturnJsonPages() throws Exception{
         mockMvc.perform(put("/pages/booktitle/{bookTitle}/setpagesunseen", "Nijntje in de speeltuin")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -162,7 +162,7 @@ public class PageControllerIntegrationTests {
 
 
     @Test
-    public void whenPostPage_thenReturnJsonPage() throws Exception {
+    void whenPostPage_thenReturnJsonPage() throws Exception {
 
         Page pageFive = new Page(5, itemsPageFour, false, "Nijntje in de speeltuin");
 
@@ -180,7 +180,7 @@ public class PageControllerIntegrationTests {
     }
 
     @Test
-    public void givenPage_whenPutPage_thenReturnJsonPage() throws Exception {
+    void givenPage_whenPutPage_thenReturnJsonPage() throws Exception {
         Page updatedPageOne = new Page(1, itemsPageOne, false, "Nijntje in de speeltuin");
 
         mockMvc.perform(put("/pages")
@@ -195,15 +195,15 @@ public class PageControllerIntegrationTests {
     }
 
     @Test
-    public void givenReview_whenDeleteReview_thenStatusOk() throws Exception {
+    void givenPage_whenDeletePage_thenStatusOk() throws Exception {
         mockMvc.perform(delete("/pages/booktitle/{bookTitle}/pagenumber/{pageNumber}", "Nijntje", 1)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void givenNoReview_whenDeleteReview_thenStatusNotFound() throws Exception {
-        mockMvc.perform(delete("/reviews/user/{userId}/book/{ISBN}", "Nijntje", 5)
+    void givenNoExistingPage_whenDeletePage_thenStatusNotFound() throws Exception {
+        mockMvc.perform(delete("/pages/booktitle/{bookTitle}/pagenumber/{pageNumber}", "Nijntje", 5)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }

@@ -32,15 +32,14 @@ public class PageControllerUnitTests {
     @MockBean
     private PageRepository pageRepository;
 
-    private ObjectMapper mapper = new ObjectMapper();
+    private final ObjectMapper mapper = new ObjectMapper();
 
     List<String> itemsPageOne = new ArrayList<>(Arrays.asList("nijntje", "mamaNijntje", "papaNijntje"));
     List<String> itemsPageTwo = new ArrayList<>(Arrays.asList("nijntje", "mamaNijntje", "papaNijntje", "auto"));
-    List<String> itemsPageThree = new ArrayList<>(Arrays.asList("nijntje", "mamaNijntje", "papaNijntje"));
 
 
     @Test
-    public void whenGetAllPages_thenReturnJsonPage() throws Exception{
+    void whenGetAllPages_thenReturnJsonPage() throws Exception{
         Page pageOne = new Page(1, itemsPageOne, true, "Nijntje in de speeltuin");
         Page pageTwo = new Page(2, itemsPageTwo, false, "Nijntje in de speeltuin");
         List<Page> pageList= new ArrayList<>();
@@ -64,7 +63,7 @@ public class PageControllerUnitTests {
     }
 
     @Test
-    public void givenBooktitle_whenGetPagesByBooktitle_thenReturnJsonPage() throws Exception {
+    void givenBooktitle_whenGetPagesByBooktitle_thenReturnJsonPage() throws Exception {
         Page pageOne = new Page(1, itemsPageOne, true, "Nijntje in de speeltuin");
         Page pageTwo = new Page(2, itemsPageTwo, false, "Nijntje in de speeltuin");
 
@@ -90,7 +89,7 @@ public class PageControllerUnitTests {
     }
 
     @Test
-    public void givenBooktitleAndPageNumber_whenGetPageByBooktitleAndPageNumber_thenReturnJsonPage() throws Exception{
+    void givenBooktitleAndPageNumber_whenGetPageByBooktitleAndPageNumber_thenReturnJsonPage() throws Exception{
         Page page = new Page(1, itemsPageOne, true, "Nijntje in de speeltuin");
 
         given(pageRepository.findPageByBookTitleAndPageNumber("Nijntje in de speeltuin", 1)).willReturn(page);
@@ -105,7 +104,7 @@ public class PageControllerUnitTests {
     }
 
     @Test
-    public void givenBooktitleAndPageNumber_whenGetItemsByBooktitleeAndPageNumber_thenReturnList() throws Exception{
+    void givenBooktitleAndPageNumber_whenGetItemsByBooktitleeAndPageNumber_thenReturnList() throws Exception{
 
         Page page = new Page(1, itemsPageOne, true, "Nijntje in de speeltuin");
 
@@ -118,7 +117,7 @@ public class PageControllerUnitTests {
     }
 
     @Test
-    public void givenBooktitleAndPageNumber_whenGetPagesUnseenByBooktitleeAndPageNumber_thenReturnDouble() throws Exception{
+    void givenBooktitleAndPageNumber_whenGetPagesUnseenByBooktitleeAndPageNumber_thenReturnDouble() throws Exception{
         Page pageOne = new Page(1, itemsPageOne, true, "Nijntje in de speeltuin");
         Page pageTwo = new Page(2, itemsPageTwo, false, "Nijntje in de speeltuin");
 
@@ -139,7 +138,7 @@ public class PageControllerUnitTests {
 
 
     @Test
-    public void givenBooktitle_whenSetPagesUnseen_thenReturnJsonPages() throws Exception{
+    void givenBooktitle_whenSetPagesUnseen_thenReturnJsonPages() throws Exception{
         Page pageOne = new Page(1, itemsPageOne, true, "Nijntje in de speeltuin");
         Page pageTwo = new Page(2, itemsPageTwo, true, "Nijntje in de speeltuin");
 
@@ -167,7 +166,7 @@ public class PageControllerUnitTests {
 
 
     @Test
-    public void whenPostPage_thenReturnJsonPage() throws Exception {
+    void whenPostPage_thenReturnJsonPage() throws Exception {
         Page page = new Page(1, itemsPageOne, true, "Nijntje in de speeltuin");
 
         mockMvc.perform(post("/pages")
@@ -183,7 +182,7 @@ public class PageControllerUnitTests {
     }
 
     @Test
-    public void givenPage_whenPutPage_thenReturnJsonPage() throws Exception {
+    void givenPage_whenPutPage_thenReturnJsonPage() throws Exception {
         Page pageOne = new Page(1, itemsPageOne, true, "Nijntje in de speeltuin");
 
         given(pageRepository.findPageByBookTitleAndPageNumber("Nijntje in de speeltuin", 1)).willReturn(pageOne);
@@ -202,7 +201,7 @@ public class PageControllerUnitTests {
     }
 
     @Test
-    public void givenReview_whenDeleteReview_thenStatusOk() throws Exception {
+    void givenPage_whenDeletePage_thenStatusOk() throws Exception {
         Page pageToBeDeleted = new Page(1, itemsPageOne, true, "Nijntje in de speeltuin");
 
         given(pageRepository.findPageByBookTitleAndPageNumber("Nijntje in de speeltuin", 1)).willReturn(pageToBeDeleted);
@@ -213,9 +212,9 @@ public class PageControllerUnitTests {
     }
 
     @Test
-    public void givenNoReview_whenDeleteReview_thenStatusNotFound() throws Exception {
+    void givenNoExistingPage_whenDeletePage_thenStatusNotFound() throws Exception {
         given(pageRepository.findPageByBookTitleAndPageNumber("Nijntje in de speeltuin", 50)).willReturn(null);
-        mockMvc.perform(delete("/reviews/user/{userId}/book/{ISBN}", "Nijntje", 50)
+        mockMvc.perform(delete("/pages/booktitle/{bookTitle}/pagenumber/{pageNumber}", "Nijntje in de speeltuin", 50)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
     }

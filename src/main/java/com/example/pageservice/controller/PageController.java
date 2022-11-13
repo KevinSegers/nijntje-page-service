@@ -77,13 +77,10 @@ public class PageController {
         int totalSeen = 0;
         int totalPages = pages.size();
         for (Page page:pages) {
-            if(page.isSeen()){
-                totalSeen ++;
-            }
+            if(page.isSeen()) totalSeen++;
         }
 
-        double result = (double) Math.round(100*(double) totalSeen/totalPages)/100;
-        return result;
+        return (double) Math.round(100*(double) totalSeen/totalPages)/100;
 
     }
 
