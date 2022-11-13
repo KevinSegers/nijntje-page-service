@@ -35,19 +35,20 @@ public class PageController {
             List<String> itemsPageEleven = new ArrayList<>(Arrays.asList("nijntje", "mamaNijntje", "papaNijntje"));
             List<String> itemsPageTwelve = new ArrayList<>(Arrays.asList("nijntje", "mamaNijntje", "papaNijntje", "auto"));
 
+            final String title = "Nijntje in de speeltuin";
 
-            pageRepository.save(new Page(1, itemsPageOne, false, "Nijntje in de speeltuin"));
-            pageRepository.save(new Page(2, itemsPageTwo, false, "Nijntje in de speeltuin"));
-            pageRepository.save(new Page(3, itemsPageThree, false, "Nijntje in de speeltuin"));
-            pageRepository.save(new Page(4, itemsPageFour, false, "Nijntje in de speeltuin"));
-            pageRepository.save(new Page(5, itemsPageFive, false, "Nijntje in de speeltuin"));
-            pageRepository.save(new Page(6, itemsPageSix, false, "Nijntje in de speeltuin"));
-            pageRepository.save(new Page(7, itemsPageSeven, false, "Nijntje in de speeltuin"));
-            pageRepository.save(new Page(8, itemsPageEight, false, "Nijntje in de speeltuin"));
-            pageRepository.save(new Page(9, itemsPageNine, false, "Nijntje in de speeltuin"));
-            pageRepository.save(new Page(10, itemsPageTen, false, "Nijntje in de speeltuin"));
-            pageRepository.save(new Page(11, itemsPageEleven, false, "Nijntje in de speeltuin"));
-            pageRepository.save(new Page(12, itemsPageTwelve, false, "Nijntje in de speeltuin"));
+            pageRepository.save(new Page(1, itemsPageOne, false, title));
+            pageRepository.save(new Page(2, itemsPageTwo, false, title));
+            pageRepository.save(new Page(3, itemsPageThree, false, title));
+            pageRepository.save(new Page(4, itemsPageFour, false, title));
+            pageRepository.save(new Page(5, itemsPageFive, false, title));
+            pageRepository.save(new Page(6, itemsPageSix, false, title));
+            pageRepository.save(new Page(7, itemsPageSeven, false, title));
+            pageRepository.save(new Page(8, itemsPageEight, false, title));
+            pageRepository.save(new Page(9, itemsPageNine, false, title));
+            pageRepository.save(new Page(10, itemsPageTen, false, title));
+            pageRepository.save(new Page(11, itemsPageEleven, false, title));
+            pageRepository.save(new Page(12, itemsPageTwelve, false, title));
 
         }
     }
