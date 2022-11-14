@@ -53,12 +53,14 @@ public class PageController {
         }
     }
 
+    // Get all pages from book
     @GetMapping("/pages/booktitle/{bookTitle}")
     public List<Page> getPagesByBookTitle(@PathVariable String bookTitle){
         return pageRepository.findPagesByBookTitle(bookTitle);
     }
 
 
+    // Get one post by booktitle and pagenumber
     @GetMapping("/pages/booktitle/{bookTitle}/pagenumber/{pageNumber}")
     public Page getPageByBookTitleAndPageNumber(@PathVariable String bookTitle, @PathVariable int pageNumber){
 
@@ -66,6 +68,7 @@ public class PageController {
 
     }
 
+    // Get all pages
     @GetMapping("/pages")
     public List<Page> getAllPages(){
         return pageRepository.findAll();
@@ -85,12 +88,14 @@ public class PageController {
 
     }
 
+    // Get all items from a page
     @GetMapping("/pages/booktitle/{bookTitle}/pagenumber/{pageNumber}/items")
     public List<String> getItemsFromPage(@PathVariable String bookTitle, @PathVariable int pageNumber){
         return pageRepository.findPageByBookTitleAndPageNumber(bookTitle, pageNumber).getItems();
     }
 
 
+    // Post a page
     @PostMapping("/pages")
     public Page addPage(@RequestBody Page page){
 
@@ -99,6 +104,7 @@ public class PageController {
         return page;
     }
 
+    // Update a page
     @PutMapping("/pages")
     public Page updatePage(@RequestBody Page updatedPage){
         Page retrievedPage = pageRepository.findPageByBookTitleAndPageNumber(updatedPage.getBookTitle(), updatedPage.getPageNumber());
@@ -114,6 +120,7 @@ public class PageController {
         return retrievedPage;
     }
 
+    // Set all pages of a book unseen
     @PutMapping("/pages/booktitle/{bookTitle}/setpagesunseen")
     public List<Page> setPagesUnseen(@PathVariable String bookTitle){
         List<Page> pages = pageRepository.findPagesByBookTitle(bookTitle);
@@ -124,6 +131,7 @@ public class PageController {
         return pages;
     }
 
+    // delete a page
     @DeleteMapping("/pages/booktitle/{bookTitle}/pagenumber/{pageNumber}")
     public ResponseEntity<Page> deletePage(@PathVariable String bookTitle, @PathVariable int pageNumber) {
         Page page = pageRepository.findPageByBookTitleAndPageNumber(bookTitle, pageNumber);
