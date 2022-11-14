@@ -122,13 +122,13 @@ public class PageController {
 
     // Set all pages of a book unseen
     @PutMapping("/pages/booktitle/{bookTitle}/setpagesunseen")
-    public List<Page> setPagesUnseen(@PathVariable String bookTitle){
+    public ResponseEntity setPagesUnseen(@PathVariable String bookTitle){
         List<Page> pages = pageRepository.findPagesByBookTitle(bookTitle);
         for(Page page : pages){
             page.setSeen(false);
             pageRepository.save(page);
         }
-        return pages;
+        return ResponseEntity.ok().build();
     }
 
     // delete a page
