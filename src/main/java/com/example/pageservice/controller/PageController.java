@@ -74,7 +74,8 @@ public class PageController {
         return pageRepository.findAll();
     }
 
-    @GetMapping("/pages/booktitle/{bookTitle}/pagesunseen")
+    // Get seen pages in double
+    @GetMapping("/pages/booktitle/{bookTitle}/pagesseen")
     public double getPagesUnseenFromBook(@PathVariable String bookTitle){
         List<Page> pages = pageRepository.findPagesByBookTitle(bookTitle);
         assert pages != null;
