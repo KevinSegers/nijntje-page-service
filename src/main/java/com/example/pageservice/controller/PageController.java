@@ -60,7 +60,7 @@ public class PageController {
     }
 
 
-    // Get one post by booktitle and pagenumber
+    // Get one page by booktitle and pagenumber
     @GetMapping("/pages/booktitle/{bookTitle}/pagenumber/{pageNumber}")
     public Page getPageByBookTitleAndPageNumber(@PathVariable String bookTitle, @PathVariable int pageNumber){
 
