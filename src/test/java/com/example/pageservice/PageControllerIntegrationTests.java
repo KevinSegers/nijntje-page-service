@@ -127,8 +127,8 @@ class PageControllerIntegrationTests {
 
     //TODO
     @Test
-    void givenBooktitleAndPageNumber_whenGetPagesUnseenByBooktitleeAndPageNumber_thenReturnDouble() throws Exception{
-        mockMvc.perform(get("/pages/booktitle/{bookTitle}/pagesunseen", "Nijntje in de speeltuin"))
+    void givenBooktitleAndPageNumber_whenGetPagesseenByBooktitleeAndPageNumber_thenReturnDouble() throws Exception{
+        mockMvc.perform(get("/pages/booktitle/{bookTitle}/pagesseen", "Nijntje in de speeltuin"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", is(0.33)));

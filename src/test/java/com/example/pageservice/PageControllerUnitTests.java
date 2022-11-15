@@ -117,7 +117,7 @@ class PageControllerUnitTests {
     }
 
     @Test
-    void givenBooktitleAndPageNumber_whenGetPagesUnseenByBooktitleeAndPageNumber_thenReturnDouble() throws Exception{
+    void givenBooktitleAndPageNumber_whenGetPagesseenByBooktitleeAndPageNumber_thenReturnDouble() throws Exception{
         Page pageOne = new Page(1, itemsPageOne, true, "Nijntje in de speeltuin");
         Page pageTwo = new Page(2, itemsPageTwo, false, "Nijntje in de speeltuin");
 
@@ -128,7 +128,7 @@ class PageControllerUnitTests {
         given(pageRepository.findPagesByBookTitle("Nijntje in de speeltuin")).willReturn(pageList);
 
 
-        mockMvc.perform(get("/pages/booktitle/{bookTitle}/pagesunseen", "Nijntje in de speeltuin"))
+        mockMvc.perform(get("/pages/booktitle/{bookTitle}/pagesseen", "Nijntje in de speeltuin"))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", is(0.50)));
